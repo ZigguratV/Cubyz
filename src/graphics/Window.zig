@@ -7,7 +7,7 @@ const files = main.files;
 const vec = main.vec;
 const Vec2f = vec.Vec2f;
 
-const vulkan = @import("vulkan.zig");
+//const vulkan = @import("vulkan.zig");
 
 pub const c = @cImport({
 	@cInclude("glad/gl.h");
@@ -701,7 +701,8 @@ pub fn setClipboardString(string: []const u8) void {
 
 pub fn init() void { // MARK: init()
 	_ = c.glfwSetErrorCallback(GLFWCallbacks.errorCallback);
-
+	
+	// NOTE(blackedout): just let's not for the OpenGL sake
 	if(builtin.target.os.tag == .macos) {
 		// NOTE(blackedout): Since the Vulkan loader is linked statically for Cubyz on macOS, libvulkan*.dylib is part of the Cubyz executable
 		// and GLFW's default attempt to load it dynamically would fail. Instead, tell GLFW where it can find the loader functions directly.
@@ -719,10 +720,10 @@ pub fn init() void { // MARK: init()
 	} else {
 		c.glfwWindowHint(c.GLFW_CLIENT_API, c.GLFW_NO_API);
 		c.glfwWindowHint(c.GLFW_VISIBLE, @intFromBool(main.settings.vulkanTestingWindow));
-		vulkanWindow = c.glfwCreateWindow(width, height, "Cubyz", null, null) orelse @panic("Failed to create GLFW window");
-		vulkan.init(vulkanWindow) catch |err| {
-			std.log.err("Error while initializing Vulkan: {s}", .{@errorName(err)});
-		};
+		//vulkanWindow = c.glfwCreateWindow(width, height, "Cubyz", null, null) orelse @panic("Failed to create GLFW window");
+		//vulkan.init(vulkanWindow) catch |err| {
+			//std.log.err("Error while initializing Vulkan: {s}", .{@errorName(err)});
+		//};
 	}
 
 	c.glfwWindowHint(c.GLFW_CLIENT_API, c.GLFW_OPENGL_API);
@@ -771,7 +772,7 @@ pub fn deinit() void {
 	Gamepad.deinit();
 	c.glfwDestroyWindow(window);
 	c.glfwDestroyWindow(vulkanWindow);
-	vulkan.deinit();
+	//vulkan.deinit();
 	c.glfwTerminate();
 }
 var cursorVisible: bool = true;

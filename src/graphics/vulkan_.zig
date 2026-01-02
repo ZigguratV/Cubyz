@@ -139,14 +139,14 @@ pub fn init(window: ?*c.GLFWwindow) !void {
 			@panic("GLAD failed to load Vulkan functions");
 		}
 	}
-	createInstance();
+	//createInstance();
 	checkResult(c.glfwCreateWindowSurface(instance, window, null, &surface));
 	try pickPhysicalDevice();
-	if(builtin.target.os.tag != .macos) {
-		if(c.gladLoaderLoadVulkan(instance, physicalDevice, null) == 0) {
-			@panic("GLAD failed to load Vulkan functions");
-		}
-	}
+	//if(builtin.target.os.tag != .macos) {
+		//if(c.gladLoaderLoadVulkan(instance, physicalDevice, null) == 0) {
+			//@panic("GLAD failed to load Vulkan functions");
+		//}
+	//}
 	createLogicalDevice();
 	if(builtin.target.os.tag != .macos) {
 		if(c.gladLoaderLoadVulkan(instance, physicalDevice, device) == 0) {
@@ -158,9 +158,9 @@ pub fn init(window: ?*c.GLFWwindow) !void {
 
 pub fn deinit() void {
 	SwapChain.deinit();
-	c.vkDestroyDevice(device, null);
-	c.vkDestroySurfaceKHR(instance, surface, null);
-	c.vkDestroyInstance(instance, null);
+	//c.vkDestroyDevice(device, null);
+	//c.vkDestroySurfaceKHR(instance, surface, null);
+	//c.vkDestroyInstance(instance, null);
 }
 
 // MARK: Instance
