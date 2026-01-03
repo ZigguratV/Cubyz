@@ -241,7 +241,7 @@ pub fn build(b: *std.Build) !void {
 		const iconsInstall = b.addInstallFile(b.path("assets/cubyz/logo.icns"), "bin/Cubyz.app/Contents/Resources/logo.icns");
 		b.getInstallStep().dependOn(&iconsInstall.step);
 
-		// NOTE(blackedout): This is to make the Vulkan loader search in (bundle)/Contents/Frameworks to find the libs referenced in the manifest files
+		// : This is to make the Vulkan loader search in (bundle)/Contents/Frameworks to find the libs referenced in the manifest files
 		exe.root_module.addRPathSpecial("@loader_path/../Frameworks");
 	}
 
