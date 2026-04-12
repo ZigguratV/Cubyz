@@ -28,9 +28,10 @@
 			.lazy = true,
 		},
 		.cubyz_deps_x86_64_macos = .{
-			.url = "https://github.com/PixelGuys/Cubyz-Libs/releases/download/11/cubyz_deps_x86_64-macos-none.tar.gz",
-			.hash = "N-V-__8AAFEIfwXPoQ_whMaJiUEiYTYbz7i3GLbtGJ5yyuYn",
+			//.url = "https://github.com/PixelGuys/Cubyz-Libs/releases/download/11/cubyz_deps_x86_64-macos-none.tar.gz",
+			//.hash = "N-V-__8AAFEIfwXPoQ_whMaJiUEiYTYbz7i3GLbtGJ5yyuYn",
 			.lazy = true,
+			.path = "../Cubyz-libs/zig-out"
 		},
 		.cubyz_deps_x86_64_linux = .{
 			.url = "https://github.com/PixelGuys/Cubyz-Libs/releases/download/11/cubyz_deps_x86_64-linux-musl.tar.gz",
