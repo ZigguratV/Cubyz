@@ -253,8 +253,6 @@ pub fn renderWorld(currentFrame: *vulkan.Frame, world: *World, ambientLight: Vec
 		gpu_performance_measuring.startQuery(.clear);
 		worldFrameBuffer.clear(Vec4f{skyColor[0], skyColor[1], skyColor[2], 1});
 		gpu_performance_measuring.stopQuery();
-	} else {
-		currentFrame.extent = .{.width = lastWidth, .height = lastHeight};
 	}
 	game.camera.updateViewMatrix();
 
