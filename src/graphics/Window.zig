@@ -759,6 +759,7 @@ pub fn init() void { // MARK: init()
 		window = c.glfwCreateWindow(width, height, windowTitle, null, null) orelse @panic("Failed to create GLFW window");
 	}
 	iconBlock: {
+		if (builtin.os.tag == .macos) break :iconBlock;
 		const image = main.graphics.Image.readFromFile(main.stackAllocator, "assets/cubyz/logo.png", .{.orientation = .asIs}) catch |err| {
 			std.log.err("Error loading logo: {s}", .{@errorName(err)});
 			break :iconBlock;
