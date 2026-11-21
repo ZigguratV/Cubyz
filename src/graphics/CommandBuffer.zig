@@ -294,10 +294,6 @@ pub fn dispatchCompute(self: CommandBuffer, groupCountX: u32, groupCountY: u32, 
 }
 
 pub fn copyBuffer(self: CommandBuffer, dest: vulkan.Buffer, destOffset: usize, source: vulkan.Buffer, sourceOffset: usize, size: usize) void {
-	const size_used = if (builtin.target.os.tag == .macos and main.settings.launch_config.alignment_test) size + @mod(4 - @mod(size, 4), 4) else size;
-	const sourceOffset_used = if (builtin.target.os.tag == .macos and main.settings.launch_config.alignment_test) sourceOffset + @mod(4 - @mod(sourceOffset, 4), 4) else sourceOffset;
-	const destOffset_used = if (builtin.target.os.tag == .macos and main.settings.launch_config.alignment_test) destOffset + @mod(4 - @mod(destOffset, 4), 4) else destOffset;
-	// enforsing the 4 divisibility of the size, offset, destination offset in case MacOS is used. Can probably be done prettier later.
 	const info: c.VkCopyBufferInfo2 = .{
 		.sType = c.VK_STRUCTURE_TYPE_COPY_BUFFER_INFO_2,
 		.dstBuffer = dest.handle,
@@ -305,9 +301,9 @@ pub fn copyBuffer(self: CommandBuffer, dest: vulkan.Buffer, destOffset: usize, s
 		.regionCount = 1,
 		.pRegions = &.{
 			.sType = c.VK_STRUCTURE_TYPE_BUFFER_COPY_2,
-			.dstOffset = destOffset_used,
-			.srcOffset = sourceOffset_used,
-			.size = size_used,
+			.dstOffset = destOffset,
+			.srcOffset = sourceOffset,
+			.size = size,
 		},
 	};
 	c.vkCmdCopyBuffer2(self.handle, &info);
