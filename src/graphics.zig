@@ -1804,16 +1804,6 @@ pub fn LargeBuffer(comptime Entry: type) type { // MARK: LargerBuffer
 						.size = c.VK_WHOLE_SIZE,
 					}}});
 					vulkan.upload.commandBuffer().copyBuffer(self.ssbo.buffer.?, 0, oldBuffer.buffer.?, 0, @as(usize, oldCapacity)*@sizeOf(Entry));
-					vulkan.upload.commandBuffer().pipelineBarrier(.{.bufferMemoryBarriers = &.{.{
-						.sType = c.VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER_2,
-						.srcStageMask = c.VK_PIPELINE_STAGE_2_COPY_BIT,
-						.srcAccessMask = c.VK_ACCESS_2_MEMORY_WRITE_BIT,
-						.dstStageMask = c.VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT | c.VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT,
-						.dstAccessMask = c.VK_ACCESS_2_MEMORY_READ_BIT,
-						.buffer = self.ssbo.buffer.?.handle,
-						.offset = 0,
-						.size = c.VK_WHOLE_SIZE,
-					}}});
 				} else {
 					c.glBindBuffer(c.GL_COPY_READ_BUFFER, oldBuffer.bufferID);
 					c.glBindBuffer(c.GL_COPY_WRITE_BUFFER, self.ssbo.bufferID);
