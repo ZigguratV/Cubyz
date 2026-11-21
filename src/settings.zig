@@ -217,7 +217,6 @@ pub const launch_config = struct {
 	pub var threadPoolThreads: ?u64 = null;
 
 	pub var vulkanTestingMode: bool = false;
-	pub var alignment_test = false;
 
 	pub fn init() void {
 		const zon: ZonElement = main.files.cwd().readToZon(main.stackAllocator, "launchConfig.zon") catch |err| blk: {
@@ -232,7 +231,6 @@ pub const launch_config = struct {
 		preferredAuthenticationAlgorithm = zon.get(main.network.authentication.KeyTypeEnum, "preferredAuthenticationAlgorithm") orelse preferredAuthenticationAlgorithm;
 		threadPoolThreads = zon.get(u64, "threadPoolThreads");
 		vulkanTestingMode = zon.get(bool, "vulkanTestingMode") orelse false;
-		alignment_test = zon.get(bool, "alignmentTest") orelse false;
 	}
 };
 
