@@ -29,6 +29,12 @@ fn commitMemory(start: [*]align(page_size_min) u8, len: usize) void {
 			std.log.err("Got error while committing virtual memory of size {}: {s}.", .{len, @tagName(err)});
 			@panic("Out of Memory");
 		};
+	} else if (builtin.target.os.tag == .macos) {
+		const err = std.posix.errno(std.c.mprotect(start, len, .{ .READ = true, .WRITE = true}));
+		if (err != .SUCCESS) {
+			std.log.err("Got error while committing virtual memory of size {}: {s}", .{len, @tagName(err)});
+			@panic("Out of Memory");
+		}
 	} else {
 		const err = std.posix.errno(std.c.mprotect(start, len, .{.READ = true, .WRITE = true}));
 		if (err != .SUCCESS) {
