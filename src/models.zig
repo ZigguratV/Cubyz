@@ -18,7 +18,7 @@ const Box = main.physics.collision.Box;
 pub var quadSsbo: ?graphics.SSBO = null;
 
 pub const QuadInfo = extern struct {
-	normal: [3]f32 align(16),
+	normal: [3]f32 align(8),
 	corners: [4][3]f32,
 	cornerUV: [4][2]f32 align(8),
 	textureSlot: u32,
